@@ -4,17 +4,16 @@
 
 
 #HOSTNAME=''
-SERVER='zbx.lsales.bix'
-IP=''
-API='http://zbx.lsales.biz/api_jsonrpc.php'
+API=' ' # http://localhost/api_jsonrpc.php
 
 # CONSTANT VARIABLES
-ERROR='0'
-ZABBIX_USER="redhate"
-ZABBIX_PASS="r1ed98hat2e"
+ZABBIX_USER=''
+ZABBIX_PASS=''
+
 HOSTGROUP=$1
 HOSTN=$2
 NOMEITEM=$3
+
 authenticate()
 {
     wget -O- -o /dev/null $API --header 'Content-Type: application/json-rpc' --post-data "{
@@ -77,7 +76,7 @@ get_hosts_hostgroups() {
         \"id\": 1}"  | awk -v RS=',"' -F: '/^host/ {print $2}'
 }
 #echo "Hosts do Grupo $1"
-get_hosts_hostgroups;
+#get_hosts_hostgroups;
 
 get_host_id() {
 
