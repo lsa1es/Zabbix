@@ -4,14 +4,11 @@
 
 
 #HOSTNAME=''
-#API=' ' # http://localhost/api_jsonrpc.php
-API='http://zbx.lsales.biz/api_jsonrpc.php'
-ZABBIX_USER='redhate'
-ZABBIX_PASS='r1ed98hat2e'
+API=' ' # http://localhost/api_jsonrpc.php
 
 # CONSTANT VARIABLES
-#ZABBIX_USER=''
-#ZABBIX_PASS=''
+ZABBIX_USER=''
+ZABBIX_PASS=''
 
 HOSTGROUP=$2
 HOSTN=$3
