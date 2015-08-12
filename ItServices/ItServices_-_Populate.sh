@@ -43,6 +43,8 @@ get_hostgroups() {
 #get_hostgroups;
 
 get_hostgroups_id() {
+#HOSTN=$3
+#NOMEITEM=$4
 
   wget -O- -o /dev/null $API --header 'Content-Type: application/json-rpc' --post-data "{
         \"jsonrpc\": \"2.0\",
@@ -63,6 +65,7 @@ GRPID=$(get_hostgroups_id)
 
 get_hosts_hostgroups() {
 
+
   wget -O- -o /dev/null $API --header 'Content-Type: application/json-rpc' --post-data "{
         \"jsonrpc\": \"2.0\",
         \"method\": \"host.get\",
@@ -77,7 +80,6 @@ get_hosts_hostgroups() {
 #get_hosts_hostgroups;
 
 get_host_id() {
-
   wget -O- -o /dev/null $API --header 'Content-Type: application/json-rpc' --post-data "{
         \"jsonrpc\": \"2.0\",
         \"method\": \"host.get\",
@@ -152,7 +154,7 @@ get_triggers_hosts() {
 #get_triggers_hosts;
 
 mk_father_itservices() {
-
+#HOSTGROUP=$1
   wget -O- -o /dev/null $API --header 'Content-Type: application/json-rpc' --post-data "{
         \"jsonrpc\": \"2.0\",
         \"method\": \"service.create\",
@@ -204,8 +206,8 @@ get_its_pid() {
 ITS_PID=$(get_its_pid | awk -v RS='{"' -F: '/^serviceid/ {print $2}' | awk -F\" '{print $2}' | head -n 1)
 
 mk_child_itservices() {
-
-  wget -O- -o /dev/null $API --header 'Content-Type: application/json-rpc' --post-data "{
+  
+	wget -O- -o /dev/null $API --header 'Content-Type: application/json-rpc' --post-data "{
         \"jsonrpc\": \"2.0\",
         \"method\": \"service.create\",
         \"params\": {
@@ -263,21 +265,44 @@ mk_child_its_trigger() {
 
 mk_populate() {
 # Inicio do Laço Populate
-for HOSTGROUP in `get_hostgroups`
+for HOSTGROUP in `echo $(get_hostgroups)`
 do
-	echo 1
-	mk_father_itservices;
-	#echo `get_hosts_hostgroups "$HOSTGROUP" `
-	echo 2
-	filho=$(get_hosts_hostgroups "$HOSTGROUP")
-	for HOSTN in `echo "$filho"`
+#	echo 1
+	$0 cria_pai $HOSTGROUP
+	#echo ""
+	#sleep 2s
+	#mk_father_itservices;
+	for HOST in `$0 all_host_per_groups $HOSTGROUP`
 	do
-		echo 3
-		cria_filho=$(mk_child_itservices "$HOSTGROUP" "$HOSTN")
-		`$cria_filho`
-		echo 4
+		if [ -z $HOST ]; then
+			echo "vazio"
+			else
+		#	echo ""
+		#	sleep 3s
+			HOSTN=`echo $HOST | sed 's/\"//g'`
+		#	echo $HOSTN 
+			$0 cria_filho $HOSTGROUP $HOSTN
+		#	echo ""
+		fi
+                IFS=$'\n'
+		for NOMEITEM in `$0 all_items_per_host $HOSTGROUP $HOSTN`
+		do
+			if [ -z $HOSTN ]; then
+                        	echo "vazio"
+                        	else
+	#			echo ""
+         #               	sleep 3s
+                        	ITEM=`echo $NOMEITEM | sed -e $'s/\"//g'`
+          #              	echo $ITEM
+                        	$0 cria_item $HOSTGROUP $HOSTN $ITEM
+           #             	echo ""
+                	fi
+		done
+
 	done
 done
+
+
 }
 
 help() {
