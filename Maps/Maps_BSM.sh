@@ -9,11 +9,11 @@
 
 
 #HOSTNAME=''
-API='http://zbx.lsales.biz/api_jsonrpc.php ' # http://localhost/api_jsonrpc.php
+API='' # http://localhost/api_jsonrpc.php
 
 # CONSTANT VARIABLES
-ZABBIX_USER='redhate'
-ZABBIX_PASS='r1ed98hat2e'
+ZABBIX_USER=''
+ZABBIX_PASS=''
 
 HOSTNAME=$1
 
