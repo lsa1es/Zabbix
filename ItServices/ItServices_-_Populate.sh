@@ -1,10 +1,19 @@
 #!/bin/sh
+#
+# Script que Gera a arvore do IT Services de Maneira Automtica. 
+# Precisa correção de alguns bugs, mas o basico ele faz.
+#
+#  
+# Author: Luiz Sales - luiz@lsales.biz
+# Blog : www.redhate.me
+#
+
 
 # VARIABLES
 
 
 #HOSTNAME=''
-API=' ' # http://localhost/api_jsonrpc.php
+API='' # http://localhost/api_jsonrpc.php
 
 # CONSTANT VARIABLES
 ZABBIX_USER=''
