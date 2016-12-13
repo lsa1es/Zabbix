@@ -5,7 +5,9 @@
 #
 # Example: ./Mk_Icon_v2.sh <File.zip>
 # ./Mk_Icon_v2.sh V2_Icones.zip
-
+#
+# Pre-requisitos:
+# bc - unzip - awk - wget - sed 
 
 API=''
 ZABBIX_USER=""
