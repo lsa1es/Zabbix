@@ -5,9 +5,12 @@
 # Altere as Variaves - URL, USR, PWS 
 
 # Como Usar
-# python ImportIconFile_v05.py <Arquivo Zip> <Prefix> 
-# python ImportIconFile_v05.py    Wer.zip      W3R 
+# python ImportIconFile_v05.py "Arquivo Zip" "Prefix"
+# python ImportIconFile_v05.py    Wer.zip      W3R 
+
 
 URL = "http:/seu-zabbix.com/"
+
 USR = "Admin"
+
 PWS = "zabbix"
